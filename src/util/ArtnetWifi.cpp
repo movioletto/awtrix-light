@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include <ArtnetWifi.h>
+#include "ArtnetWifi.h"
 
 
 const char ArtnetWifi::artnetId[] = ART_NET_ID;

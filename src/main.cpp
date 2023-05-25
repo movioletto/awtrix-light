@@ -31,12 +31,13 @@
  ***************************************************************************/
 
 #include <Arduino.h>
-#include "DisplayManager.h"
-#include "PeripheryManager.h"
-#include "MQTTManager.h"
-#include "ServerManager.h"
-#include "Globals.h"
-#include "UpdateManager.h"
+
+#include "constant/Globals.h"
+#include "manager/DisplayManager.h"
+#include "manager/MQTTManager.h"
+#include "manager/PeripheryManager.h"
+#include "manager/ServerManager.h"
+#include "manager/UpdateManager.h"
 
 TaskHandle_t taskHandle;
 volatile bool StopTask = false;
@@ -50,7 +51,7 @@ void BootAnimation(void *parameter)
     {
       break;
     }
-    DisplayManager.HSVtext(4, 6, "AWTRIX", true, 0);
+    DisplayManager.HSVtext(4, 6, "AWTRIX Ao", true, 0);
     vTaskDelay(xDelay);
   }
   vTaskDelete(NULL);
@@ -81,7 +82,7 @@ void setup()
     float x = 4;
     while (x >= -85)
     {
-      DisplayManager.HSVtext(x, 6, ("AWTRIX   " + ServerManager.myIP.toString()).c_str(), true, 0);
+      DisplayManager.HSVtext(x, 6, ("AWTRIX  Ao  " + ServerManager.myIP.toString()).c_str(), true, 0);
       x -= 0.18;
     }
   }

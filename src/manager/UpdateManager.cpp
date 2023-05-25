@@ -1,12 +1,13 @@
-#include <UpdateManager.h>
+#include <Ticker.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <HTTPUpdate.h>
 #include <WiFiClientSecure.h>
-#include "cert.h"
+
+#include "../constant/cert.h"
+#include "../constant/Globals.h"
 #include "DisplayManager.h"
-#include <Ticker.h>
-#include "Globals.h"
+#include "UpdateManager.h"
 
 #define URL_fw_Version "https://raw.githubusercontent.com/Blueforcer/awtrix-light/main/version"
 

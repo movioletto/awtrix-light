@@ -31,7 +31,8 @@
 #include <Arduino.h>
 #include "FastLED_NeoMatrix.h"
 #include "GifPlayer.h"
-#include "DisplayManager.h"
+
+#include "../manager/DisplayManager.h"
 
 #ifndef DEBUG_MatrixDisplayUi
 #define DEBUG_MatrixDisplayUi(...)

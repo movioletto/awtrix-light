@@ -1,8 +1,10 @@
-#include "Globals.h"
-#include "Preferences.h"
 #include <WiFi.h>
 #include <ArduinoJson.h>
 #include <LittleFS.h>
+
+#include "Preferences.h"
+
+#include "Globals.h"
 
 Preferences Settings;
 
@@ -148,6 +150,11 @@ void loadSettings()
     TIME_FORMAT = Settings.getString("TFORMAT", "%H:%M:%S");
     DATE_FORMAT = Settings.getString("DFORMAT", "%d.%m.%y");
     START_ON_MONDAY = Settings.getBool("SOM", true);
+
+    WEBHOOK_URL = Settings.getString("WEBHOOK_URL", "");
+    WEBHOOK_PARAM = Settings.getString("WEBHOOK_PARAM", "");
+    SHOW_WEBHOOK = Settings.getBool("WEBHOOK", true);
+
     IS_CELSIUS = Settings.getBool("CEL", true);
     SHOW_TIME = Settings.getBool("TIM", true);
     SHOW_EYES = Settings.getBool("EYE", true);
@@ -193,6 +200,11 @@ void saveSettings()
     Settings.putString("TFORMAT", TIME_FORMAT);
     Settings.putString("DFORMAT", DATE_FORMAT);
     Settings.putBool("SOM", START_ON_MONDAY);
+    
+    Settings.putString("WEBHOOK_URL", WEBHOOK_URL);
+    Settings.putString("WEBHOOK_PARAM", WEBHOOK_PARAM);
+    Settings.putBool("WEBHOOK", SHOW_WEBHOOK);
+
     Settings.putBool("CEL", IS_CELSIUS);
     Settings.putBool("TIM", SHOW_TIME);
     Settings.putBool("EYE", SHOW_EYES);
@@ -216,7 +228,7 @@ IPAddress gateway;
 IPAddress subnet;
 IPAddress primaryDNS;
 IPAddress secondaryDNS;
-const char *VERSION = "0.66";
+const char *VERSION = "0.66 m";
 
 String MQTT_HOST = "";
 uint16_t MQTT_PORT = 1883;
@@ -229,6 +241,7 @@ bool SHOW_TIME = true;
 bool SHOW_EYES = true;
 bool SHOW_DATE = true;
 bool SHOW_WEATHER = true;
+bool SHOW_WEBHOOK = true;
 #ifdef ULANZI
 bool SHOW_BAT = true;
 #endif
@@ -269,6 +282,9 @@ String ALARM_SOUND;
 uint8_t SNOOZE_TIME;
 
 String TIMER_SOUND;
+
+String WEBHOOK_URL;
+String WEBHOOK_PARAM;
 
 // Matrix States
 bool AUTO_TRANSITION = false;

@@ -43,6 +43,7 @@ extern bool NET_STATIC;
 extern bool SHOW_TIME;
 extern bool SHOW_DATE;
 extern bool SHOW_WEATHER;
+extern bool SHOW_WEBHOOK;
 #ifdef ULANZI
 extern bool SHOW_BAT;
 #endif
@@ -89,6 +90,10 @@ extern bool AUTO_TRANSITION;
 extern String TIME_FORMAT;
 extern String DATE_FORMAT;
 extern bool START_ON_MONDAY;
+
+extern String WEBHOOK_URL;
+extern String WEBHOOK_PARAM;
+
 extern bool IS_CELSIUS;
 extern bool SOUND_ACTIVE;
 extern String BOOT_SOUND;

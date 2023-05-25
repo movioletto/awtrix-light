@@ -27,8 +27,10 @@
  *
  */
 
+#include "../constant/Globals.h"
 #include "MatrixDisplayUi.h"
-#include "Fonts/AwtrixFont.h"
+
+#include <Fonts/AwtrixFont.h>
 
 GifPlayer gif1;
 GifPlayer gif2;
@@ -97,11 +99,13 @@ void MatrixDisplayUi::setAppAnimation(AnimationDirection dir)
 void MatrixDisplayUi::setApps(const std::vector<std::pair<String, AppCallback>> &appPairs)
 {
 
+  DEBUG_PRINTF("setApps - n app: %i", appPairs.size());
   delete[] AppFunctions;
   AppCount = appPairs.size();
   AppFunctions = new AppCallback[AppCount];
   for (size_t i = 0; i < AppCount; ++i)
   {
+    DEBUG_PRINTF("setApps - nome: %s", appPairs[i].first);
     AppFunctions[i] = appPairs[i].second;
   }
   this->resetState();

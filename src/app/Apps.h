@@ -3,20 +3,23 @@
 
 #include <vector>
 #include <map>
-#include "icons.h"
 #include <FastLED_NeoMatrix.h>
-#include "MatrixDisplayUi.h"
-#include "Globals.h"
-#include "Functions.h"
-#include "MenuManager.h"
-#include "PeripheryManager.h"
-#include "DisplayManager.h"
-#include "LittleFS.h"
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <Ticker.h>
 #include <ArduinoJson.h>
+
+#include "LittleFS.h"
+
 #include "LookingEyes.h"
+#include "../constant/Globals.h"
+#include "../constant/icons.h"
+#include "../manager/DisplayManager.h"
+#include "../manager/MenuManager.h"
+#include "../manager/PeripheryManager.h"
+#include "../util/Functions.h"
+#include "../util/MatrixDisplayUi.h"
+
 Ticker downloader;
 
 tm timeInfo;
@@ -129,6 +132,7 @@ int findAppIndexByName(const String &name)
 
 void TimeApp(FastLED_NeoMatrix *matrix, MatrixDisplayUiState *state, int16_t x, int16_t y, bool firstFrame, bool lastFrame, GifPlayer *gifPlayer)
 {
+    DEBUG_PRINTF("Inizio Time");
     if (notifyFlag)
         return;
     CURRENT_APP = "Time";
@@ -885,6 +889,77 @@ void NotifyApp(FastLED_NeoMatrix *matrix, MatrixDisplayUiState *state, GifPlayer
     // Reset text color after displaying notification
     DisplayManager.getInstance().resetTextColor();
 }
+
+/* void Webhook(FastLED_NeoMatrix *matrix, MatrixDisplayUiState *state, int16_t x, int16_t y, bool firstFrame, bool lastFrame, GifPlayer *gifPlayer)
+{
+    DEBUG_PRINTF("Inizio Webhook");
+    if (notifyFlag)
+        return;
+
+    CURRENT_APP = "Webhook";
+
+    if (BAT_COLOR > 0)
+    {
+        matrix->setTextColor(BAT_COLOR);
+    }
+    else
+    {
+        DisplayManager.getInstance().resetTextColor();
+    }
+
+    if (WEBHOOK_URL.indexOf(':'))
+    {
+        matrix->setCursor(x, y);
+        matrix->print("Impostare WEBHOOK_URL");
+    }
+    else
+    {
+        String payload;
+        int httpCode = -1;
+        String fwurl = "";
+        fwurl += WEBHOOK_URL;
+
+        DEBUG_PRINTF("WEBHOOK_URL: %s", WEBHOOK_URL);
+        if (WEBHOOK_PARAM != "")
+        {
+            fwurl += "?" + WEBHOOK_PARAM;
+        }
+
+        HTTPClient https;
+
+        if (https.begin(fwurl))
+        {
+            delay(100);
+            httpCode = https.GET();
+            delay(100);
+
+            DEBUG_PRINTF("httpCode: %i", httpCode);
+            if (httpCode == HTTP_CODE_OK)
+            {
+                payload = https.getString();
+            }
+            else
+            {
+                // TODO
+                payload = "ERROR";
+            }
+            https.end();
+        }
+
+        DEBUG_PRINTF("payload: %s", payload);
+        if (httpCode != -1) // if version received
+        {
+            // matrix->drawRGBBitmap(x, y, icon_1486, 8, 8);
+            matrix->setCursor(x, y);
+            matrix->print(payload);
+        }
+        else
+        {
+            matrix->setCursor(x, y);
+            matrix->print("http error");
+        }
+    }
+} */
 
 // Unattractive to have a function for every customapp wich does the same, but currently still no other option found TODO
 
